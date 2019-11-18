@@ -14,7 +14,7 @@ enum class TimeUnits(val time:Long){
     DAY(24*HOUR.time)
 }
 
-fun Date.format(pattern: String="HH.mm.ss dd.MM.yy"):String{
+fun Date.format(pattern: String="HH:mm:ss dd.MM.yy"):String{
     Thread.sleep(1000L)
     val dateformat = SimpleDateFormat(pattern, Locale("ru"))
     return dateformat.format(this)
