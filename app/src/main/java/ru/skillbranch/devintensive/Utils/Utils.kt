@@ -3,19 +3,21 @@ package ru.skillbranch.devintensive.Utils
 object Utils {
 
     fun parseFullName(fullName:String?):Pair<String?,String?>{
-        var fullNametemp = fullName
-        if(fullName==null){
-            return Pair(null,null)
+
+        when(fullName?.replace(" ","")){
+            null,"" -> return Pair(null, null)
         }
-        fullNametemp = fullNametemp!!.replace(" ","")
-        if(fullNametemp==""){
-            return Pair(null,null)
+
+        if(fullName!!.contains(" ")){
+            var (firstName, lastName) = fullName.split(" ")
+            firstName = firstName.replace(" ","")
+            lastName = lastName.replace(" ","")
+
+            if(lastName == "")
+                return(firstName to null)
+            else return (firstName to lastName)
         }
-        if(" " in fullName) {
-            val (firstName, secondName) = fullName.split(" ")
-            return Pair(firstName, secondName)
-        }
-        return Pair(fullName,null)
+        return(fullName to null)
     }
 
     fun toInitials(firstName:String?,secondName:String?):String?{
