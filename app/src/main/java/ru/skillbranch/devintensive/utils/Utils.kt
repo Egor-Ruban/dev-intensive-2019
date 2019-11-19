@@ -21,33 +21,40 @@ object Utils {
     }
 
     fun toInitials(firstName:String?,secondName:String?):String?{
-        var tempFirstName = firstName
-        var tempSecondName = secondName
-        var firstLetter:String?
-        var secondLetter:String?
-        if(firstName===null){ firstLetter = null}
-        else {
-            tempFirstName = firstName!!.replace(" ", "")
-            if(tempFirstName==""){
-                firstLetter = null
-            } else {
-                firstLetter = firstName[0].toString().capitalize()
+        var firstName = firstName
+        var secondName = secondName
+        if(firstName==null||secondName==null){
+            if(firstName==null && secondName == null){
+                return null
+            }
+            else if(firstName!=null && secondName == null){
+                firstName = firstName.replace(" ","")
+                if(firstName=="") return null
+                return firstName[0].toUpperCase().toString()
+            }
+            else if(firstName==null && secondName != null){
+                secondName = secondName.replace(" ","")
+                if(secondName=="") return null
+                return secondName[0].toUpperCase().toString()
             }
         }
-        if(secondName===null){ secondLetter = null}
-        else {
-            tempSecondName = secondName!!.replace(" ", "")
-            if(tempSecondName==""){
-                secondLetter = null
-            } else {
-                secondLetter = secondName[0].toString().capitalize()
+        else{
+            firstName = firstName.replace(" ","")
+            secondName = secondName.replace(" ","")
+            if(firstName=="" && secondName == ""){
+                return null
             }
+            else if(firstName!="" && secondName == ""){
+                return firstName[0].toUpperCase().toString()
+            }
+            else if(firstName=="" && secondName != ""){
+                return secondName[0].toUpperCase().toString()
+            }
+            else if(firstName!="" && secondName != ""){
+                return firstName[0].toUpperCase().toString() + secondName[0].toUpperCase().toString()
+            }
+
         }
-
-        if     (firstLetter==null&&secondLetter==null) return null
-        else if(firstLetter==null&&secondLetter!=null) return "$secondLetter"
-        else if(firstLetter!=null&&secondLetter==null) return "$firstLetter"
-        return "$firstLetter$secondLetter"
-
+        return null
     }
 }
