@@ -27,7 +27,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener{
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         benderImage = iv_bender
-        textTXT = tv_question
+        textTXT = tv_text
         textEdit = et_message
         btnSend = iv_send
 
