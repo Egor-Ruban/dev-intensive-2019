@@ -17,7 +17,11 @@ class Bender(
     fun listenAnswer(answer:String):Pair<String,Triple<Int,Int,Int>>{
         return if(question.answers.contains(answer)){
             question = question.nextQuestion()
-            "Отлично - ты справился\n${question.question}" to status.color
+            if(question == Question.IDLE){
+                "Отлично - ты справился\n${Question.IDLE.question}" to status.color
+            } else {
+                "Отлично - ты справился\n${question.question}" to status.color
+            }
         } else if(status == Status.CRITICAL){
             status = Status.NORMAL
             question = Question.NAME
