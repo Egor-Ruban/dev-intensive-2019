@@ -17,10 +17,14 @@ class Bender(
     fun listenAnswer(answer:String):Pair<String,Triple<Int,Int,Int>>{
         return if(question.answers.contains(answer)){
             question = question.nextQuestion()
-            "Отлично, это правильный ответ\n${question.question}" to status.color
+            "Отлично - ты справился\n${question.question}" to status.color
+        } else if(status == Status.CRITICAL){
+            status = Status.NORMAL
+            question = Question.NAME
+            "Это неправильный ответ. Давай все по новой\n${question.question}" to status.color
         } else {
             status = status.nextStatus()
-            "Это не правильный ответ!\n${question.question}" to status.color
+            "Это неправильный ответ\n${question.question}" to status.color
         }
     }
 
@@ -30,7 +34,7 @@ class Bender(
         NORMAL(Triple(255,255,255)),
         WARNING(Triple(255,120,0)),
         DANGER(Triple(255,60,60)),
-        CRITICAL(Triple(255,255,0));
+        CRITICAL(Triple(255,0,0));
 
         fun nextStatus():Status{
             return if(this.ordinal < values().lastIndex){
@@ -46,19 +50,19 @@ class Bender(
         val answers:MutableList<String>
     ){
         NAME("Как меня зовут?", mutableListOf("бендер", "bender")){
-            override fun nextQuestion(): Question = NAME
-        },
-        PROFESSION("Назови свою профессию", mutableListOf("сгибальщик","bender")){
             override fun nextQuestion(): Question = PROFESSION
         },
-        MATERIAL("Из чего я сделан?", mutableListOf("металл","дерево","metal","iron","wood")){
+        PROFESSION("Назови свою профессию", mutableListOf("сгибальщик","bender")){
             override fun nextQuestion(): Question = MATERIAL
         },
-        BDAY("Когда меня создали?", mutableListOf("2993")){
+        MATERIAL("Из чего я сделан?", mutableListOf("металл","дерево","metal","iron","wood")){
             override fun nextQuestion(): Question = BDAY
         },
-        SERIAL("Мой серийный номер?", mutableListOf("2716057")){
+        BDAY("Когда меня создали?", mutableListOf("2993")){
             override fun nextQuestion(): Question = SERIAL
+        },
+        SERIAL("Мой серийный номер?", mutableListOf("2716057")){
+            override fun nextQuestion(): Question = IDLE
         },
         IDLE("На этом все, вопросов больше нет", mutableListOf("")){
             override fun nextQuestion(): Question = IDLE
