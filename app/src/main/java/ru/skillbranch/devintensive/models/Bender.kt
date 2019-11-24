@@ -52,7 +52,7 @@ class Bender(
         NAME("Как меня зовут?", mutableListOf("бендер", "bender")){
             override fun nextQuestion(): Question = PROFESSION
         },
-        PROFESSION("Назови свою профессию", mutableListOf("сгибальщик","bender")){
+        PROFESSION("Назови мою профессию", mutableListOf("сгибальщик","bender")){
             override fun nextQuestion(): Question = MATERIAL
         },
         MATERIAL("Из чего я сделан?", mutableListOf("металл","дерево","metal","iron","wood")){
