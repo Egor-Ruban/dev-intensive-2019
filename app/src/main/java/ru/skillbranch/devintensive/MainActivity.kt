@@ -1,19 +1,23 @@
 package ru.skillbranch.devintensive
 
-import android.content.Context
 import android.graphics.Color
 import android.graphics.PorterDuff
 import android.os.Bundle
+import android.util.Log
+import android.view.KeyEvent
 import android.view.View
-import android.view.inputmethod.InputMethodManager
+import android.view.inputmethod.EditorInfo
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.TextView.OnEditorActionListener
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import ru.skillbranch.devintensive.extensions.hideKeyboard
 import ru.skillbranch.devintensive.models.Bender
 import ru.skillbranch.devintensive.models.Bender.Question
+
+
 
 
 class MainActivity : AppCompatActivity(), View.OnClickListener {
@@ -42,6 +46,8 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
         textTxt.text = benderObj.askQuestion()
         sendBtn.setOnClickListener(this)
+        messageEt.setOnEditorActionListener(DoneOnEditorActionListener())
+
     }
 
 
@@ -64,4 +70,24 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         outState?.putString("STATUS", benderObj.status.name)
         outState?.putString("QUESTION", benderObj.question.name)
     }
+
+    inner class DoneOnEditorActionListener : OnEditorActionListener {
+        override fun onEditorAction(
+            v: TextView,
+            actionId: Int,
+            event: KeyEvent
+        ): Boolean {
+            if (v.id==R.id.et_message && messageEt.text.toString()!="") {
+                val (phase, color) = benderObj.listenAnswer(messageEt.text.toString().toLowerCase())
+                messageEt.setText("")
+                val(r, g, b) = color
+                benderImage.setColorFilter(Color.rgb(r, g, b), PorterDuff.Mode.MULTIPLY)
+                textTxt.text = phase
+                hideKeyboard()
+                return true
+            }
+            return false
+        }
+    }
+
 }
