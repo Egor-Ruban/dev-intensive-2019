@@ -73,11 +73,11 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
     inner class DoneOnEditorActionListener : OnEditorActionListener {
         override fun onEditorAction(
-            v: TextView,
+            v: TextView?,
             actionId: Int,
-            event: KeyEvent
+            event: KeyEvent?
         ): Boolean {
-            if (v.id==R.id.et_message && messageEt.text.toString()!="") {
+            if (v?.id==R.id.et_message && messageEt.text.toString()!="") {
                 val (phase, color) = benderObj.listenAnswer(messageEt.text.toString().toLowerCase())
                 messageEt.setText("")
                 val(r, g, b) = color
