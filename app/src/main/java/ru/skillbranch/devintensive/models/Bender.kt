@@ -10,7 +10,7 @@ class Bender (var status: Status = Status.NORMAL, var question: Question = Quest
                 Question.IDLE -> question.question to status.color
                 else -> "${checkAnswer(answer)}\n${question.question}" to status.color
             }
-                false -> question.wrongInput to status.color
+                false -> "${question.wrongInput}\n${question.question}" to status.color
 
         }
 
@@ -54,12 +54,24 @@ class Bender (var status: Status = Status.NORMAL, var question: Question = Quest
     enum class Question(val question: String, val answer: List<String>,val wrongInput:String = ""){
         NAME("Как меня зовут?", listOf("бендер", "bender"),"Имя должно начинаться с заглавной буквы") {
             override fun nextQuestion(): Question = PROFESSION
-            override fun validate(answer: String): Boolean = answer[0].isUpperCase()
+            override fun validate(answer: String): Boolean{
+                return if(answer.isEmpty()){
+                    false
+                } else {
+                    answer[0].isUpperCase()
+                }
+            }
 
         },
         PROFESSION("Назови мою профессию?", listOf("сгибальщик", "bender"),"Профессия должна начинаться со строчной буквы"){
             override fun nextQuestion(): Question = MATERIAL
-            override fun validate(answer: String): Boolean = answer[0].isLowerCase()
+            override fun validate(answer: String): Boolean{
+                return if(answer.isEmpty()){
+                    false
+                } else {
+                    answer[0].isLowerCase()
+                }
+            }
 
         },
         MATERIAL("Из чего я сделан?", listOf("металл", "дерево", "iron", "wood", "metal"),"Материал не должен содержать цифр"){
