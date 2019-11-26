@@ -59,8 +59,6 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             benderImage.setColorFilter(Color.rgb(r, g, b), PorterDuff.Mode.MULTIPLY)
             textTxt.text = phase
             hideKeyboard()
-
-
         }
     }
 
@@ -77,7 +75,9 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             actionId: Int,
             event: KeyEvent?
         ): Boolean {
-            if (v?.id==R.id.et_message && messageEt.text.toString()!="") {
+            Log.d("M_MainActivity", "$actionId")
+            if (actionId==EditorInfo.IME_ACTION_DONE) {
+                //Log.d("M_MainActivity", "$actionId")
                 val (phase, color) = benderObj.listenAnswer(messageEt.text.toString().toLowerCase())
                 messageEt.setText("")
                 val(r, g, b) = color
