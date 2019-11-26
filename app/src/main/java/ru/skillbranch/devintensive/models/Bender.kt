@@ -1,5 +1,7 @@
 package ru.skillbranch.devintensive.models
 
+import android.util.Log
+
 class Bender (var status: Status = Status.NORMAL, var question: Question = Question.NAME){
 
     fun askQuestion():String = question.question
@@ -8,7 +10,7 @@ class Bender (var status: Status = Status.NORMAL, var question: Question = Quest
         return when (question.validate(answer)){
             true -> when(question){
                 Question.IDLE -> question.question to status.color
-                else -> "${checkAnswer(answer)}\n${question.question}" to status.color
+                else -> "${checkAnswer(answer.toLowerCase())}\n${question.question}" to status.color
             }
                 false -> "${question.wrongInput}\n${question.question}" to status.color
 
@@ -58,6 +60,7 @@ class Bender (var status: Status = Status.NORMAL, var question: Question = Quest
                 return if(answer.isEmpty()){
                     false
                 } else {
+                    Log.d("M_Bender", "$answer ${answer[0].isUpperCase()}")
                     answer[0].isUpperCase()
                 }
             }
