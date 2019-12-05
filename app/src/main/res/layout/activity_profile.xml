@@ -23,25 +23,25 @@
             android:layout_marginBottom="@dimen/spacing_normal_16">
 
             <ImageButton
-                android:id="@+id/btn_switch_theme"
                 android:layout_width="@dimen/btn_round_size_40"
                 android:layout_height="@dimen/btn_round_size_40"
                 android:layout_marginStart="@dimen/spacing_huge_32"
                 android:layout_marginTop="36dp"
                 android:layout_toEndOf="@id/iv_avatar"
+                android:id="@+id/btn_edit"
                 android:background="@drawable/btn_round_bg"
-                android:src="@drawable/ic_switch_day_night"
-                android:contentDescription="TODO" />
+                android:src="@drawable/ic_edit_black_24dp"/>
 
             <ImageButton
-                android:id="@+id/btn_edit"
                 android:layout_width="@dimen/btn_round_size_40"
                 android:layout_height="@dimen/btn_round_size_40"
                 android:layout_marginTop="36dp"
                 android:layout_marginEnd="@dimen/spacing_huge_32"
                 android:layout_toStartOf="@+id/iv_avatar"
+                android:id="@+id/btn_switch_theme"
                 android:background="@drawable/btn_round_bg"
-                android:src="@drawable/ic_edit_black_24dp" />
+                android:src="@drawable/ic_switch_day_night"
+                 />
 
             <ImageView
                 android:id="@+id/iv_avatar"
@@ -74,7 +74,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/color_primary_light"
+        android:background="?attr/colorAccentedSurface"
         android:orientation="horizontal">
 
         <LinearLayout
@@ -109,7 +109,7 @@
             android:layout_height="match_parent"
             android:layout_marginTop="@dimen/spacing_normal_16"
             android:layout_marginBottom="@dimen/spacing_normal_16"
-            android:background="@color/color_divider_light"/>
+            android:background="?attr/colorDivider"/>
 
         <LinearLayout
             android:layout_width="0dp"
@@ -180,7 +180,7 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_marginStart="72dp"
-        android:background="@color/color_divider_dark"/>
+        android:background="?attr/colorDivider"/>
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -209,7 +209,7 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_marginStart="72dp"
-        android:background="@color/color_divider_dark"/>
+        android:background="?attr/colorDivider"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
