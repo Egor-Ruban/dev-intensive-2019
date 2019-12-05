@@ -75,8 +75,8 @@ class ProfileActivity : AppCompatActivity() {
         viewModel.getTheme().observe(this, Observer { updateTheme(it) })
     }
 
-    private fun updateTheme(mode: Int?){
-        delegate.localNightMode = mode!!
+    private fun updateTheme(mode: Int){
+        delegate.setLocalNightMode(mode)
     }
 
     private fun updateUI(profile:Profile){
