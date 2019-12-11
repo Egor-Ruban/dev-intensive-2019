@@ -52,7 +52,7 @@ class ProfileActivity : AppCompatActivity() {
         }
 
         btn_switch_theme.setOnClickListener{
-
+            viewModel.switchTheme()
         }
 
 
@@ -61,6 +61,7 @@ class ProfileActivity : AppCompatActivity() {
     private fun initViewModel(){
         viewModel = ViewModelProviders.of(this).get(ProfileViewModel::class.java)
         viewModel.getProfileData().observe(this, Observer { updateUI(it)})
+        viewModel.getTheme().observe(this, Observer { updateTheme(it) })
     }
 
     private fun updateUI(profile: Profile) {
@@ -69,6 +70,10 @@ class ProfileActivity : AppCompatActivity() {
                 v.text = it[k].toString()
             }
         }
+    }
+
+    private fun updateTheme(mode : Int){
+        delegate.setLocalNightMode(mode)
     }
 
     private fun saveProfileInfo(){
@@ -100,14 +105,14 @@ class ProfileActivity : AppCompatActivity() {
 
         with(btn_edit){
             val filter: ColorFilter? = if (isEdit){
-                PorterDuffColorFilter(resources.getColor(R.color.color_accent), PorterDuff.Mode.SRC_IN)
+                PorterDuffColorFilter(resources.getColor(R.color.color_accent,theme), PorterDuff.Mode.SRC_IN)
             }
             else null
 
             val icon =
                 if (isEdit)
-                    resources.getDrawable(R.drawable.ic_save_black_24dp)
-                else resources.getDrawable(R.drawable.ic_edit_black_24dp)
+                    resources.getDrawable(R.drawable.ic_save_black_24dp,theme)
+                else resources.getDrawable(R.drawable.ic_edit_black_24dp,theme)
 
             background.colorFilter = filter
             setImageDrawable(icon)
