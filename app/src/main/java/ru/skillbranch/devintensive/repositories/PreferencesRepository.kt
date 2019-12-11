@@ -53,9 +53,9 @@ object PreferencesRepository {
         }
     }.apply()
 
-    fun saveTheme(value: Int) {
+    fun saveAppTheme(value: Int) {
         putValue(APP_THEME to value)
     }
 
-    fun getTheme() = prefs.getInt(APP_THEME,AppCompatDelegate.MODE_NIGHT_NO)
+    fun getAppTheme() = prefs.getInt(APP_THEME,AppCompatDelegate.MODE_NIGHT_NO)
 }

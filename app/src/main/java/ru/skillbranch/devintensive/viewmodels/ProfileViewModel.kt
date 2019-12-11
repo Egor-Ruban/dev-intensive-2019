@@ -14,7 +14,7 @@ class ProfileViewModel : ViewModel() {
 
     init{
         profileData.value = repository.getProfile()
-        appTheme.value = repository.getTheme()
+        appTheme.value = repository.getAppTheme()
     }
 
     override fun onCleared() {
@@ -34,7 +34,7 @@ class ProfileViewModel : ViewModel() {
         } else {
             appTheme.value = AppCompatDelegate.MODE_NIGHT_YES
         }
-        repository.saveTheme(appTheme.value!!)
+        repository.saveAppTheme(appTheme.value!!)
     }
 
     fun getTheme() : LiveData<Int> = appTheme
