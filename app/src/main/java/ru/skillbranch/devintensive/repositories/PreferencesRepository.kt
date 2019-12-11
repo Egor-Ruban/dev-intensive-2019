@@ -20,7 +20,7 @@ object PreferencesRepository {
         PreferenceManager.getDefaultSharedPreferences(ctx)
     }
     fun getProfile(): Profile = Profile(
-        prefs.getString(FIRST_NAME,"oops")!!,
+        prefs.getString(FIRST_NAME,"")!!,
         prefs.getString(LAST_NAME,"")!!,
         prefs.getString(ABOUT,"")!!,
         prefs.getString(REPOSITORY,"")!!,
