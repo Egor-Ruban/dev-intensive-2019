@@ -23,24 +23,26 @@
             android:layout_marginBottom="@dimen/spacing_normal_16">
 
             <ImageButton
-                android:id="@+id/btn_switch_theme"
                 android:layout_width="@dimen/btn_round_size_40"
                 android:layout_height="@dimen/btn_round_size_40"
                 android:layout_marginStart="@dimen/spacing_huge_32"
                 android:layout_marginTop="36dp"
                 android:layout_toEndOf="@id/iv_avatar"
+                android:id="@+id/btn_edit"
                 android:background="@drawable/btn_round_bg"
-                android:src="@drawable/ic_switch_day_night" />
+                android:src="@drawable/ic_edit_black_24dp"
+                 />
 
             <ImageButton
-                android:id="@+id/btn_edit"
                 android:layout_width="@dimen/btn_round_size_40"
                 android:layout_height="@dimen/btn_round_size_40"
                 android:layout_marginTop="36dp"
                 android:layout_marginEnd="@dimen/spacing_huge_32"
                 android:layout_toStartOf="@+id/iv_avatar"
+                android:id="@+id/btn_switch_theme"
                 android:background="@drawable/btn_round_bg"
-                android:src="@drawable/ic_edit_black_24dp" />
+                android:src="@drawable/ic_switch_day_night"
+                 />
 
             <ImageView
                 android:id="@+id/iv_avatar"
@@ -226,7 +228,6 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/spacing_normal_16"
             android:hint="@string/profile_hint_repository">
-
             <EditText style="@style/Profile.EditText.Single"
                 android:id="@+id/et_repository"
                 android:layout_width="match_parent"
