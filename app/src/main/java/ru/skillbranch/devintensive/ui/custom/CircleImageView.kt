@@ -3,39 +3,59 @@ package ru.skillbranch.devintensive.ui.custom
 import android.content.Context
 import android.graphics.*
 import android.graphics.drawable.BitmapDrawable
+import android.graphics.drawable.Drawable
+import android.graphics.drawable.VectorDrawable
 import android.util.AttributeSet
+import android.util.Log
 import android.widget.ImageView
-
+import androidx.annotation.ColorRes
+import androidx.annotation.Dimension
+import androidx.core.graphics.drawable.DrawableCompat
+import androidx.core.graphics.drawable.toBitmap
+import ru.skillbranch.devintensive.R
 
 
 class CircleImageView @JvmOverloads constructor(
         context: Context,
         attrs: AttributeSet? = null,
-        defStyleAttrs:Int=0,
-        borderColor : Int = Color.BLACK
+        defStyleAttrs:Int=0
 ) : ImageView(
         context, attrs, defStyleAttrs
 ){
 
-    private var borderColor = Color.BLACK
-    private var borderWidth = 20.0f
+    companion object{
+        val DEFAULT_COLOR = Color.WHITE
+        val DEFAULT_WIDTH = 2.0f
+    }
+
+    private var borderColor = DEFAULT_COLOR
+    private var borderWidth = DEFAULT_WIDTH
+
+    init {
+        if(attrs!=null){
+            val a = context.obtainStyledAttributes(attrs, R.styleable.CircleImageView)
+            borderColor = a.getColor(R.styleable.CircleImageView_cv_borderColor, DEFAULT_COLOR)
+            borderWidth = a.getDimension(R.styleable.CircleImageView_cv_borderWidth, DEFAULT_WIDTH)
+            a.recycle()
+        }
+    }
 
     override fun onDraw(canvas: Canvas) {
         drawRoundImage(canvas)
         drawStroke(canvas)
     }
 
-    fun setBorderColor(color : Int){
+    fun setBorderColor(@ColorRes color : Int){
         borderColor = color
     }
 
-    fun getBorderColor() = borderColor
+    @ColorRes fun getBorderColor() = borderColor
 
-    fun setBorderWidth(value : Float){
-        borderWidth = value
+    fun setBorderWidth(@Dimension dp : Float){
+        borderWidth = dp
     }
 
-    fun getBorderWidth() = borderWidth
+    @Dimension fun getBorderWidth() = borderWidth
 
     private fun drawStroke(canvas: Canvas) {
         val paint = Paint(Paint.ANTI_ALIAS_FLAG)
@@ -43,13 +63,15 @@ class CircleImageView @JvmOverloads constructor(
 
         /* Border paint */
         paint.color = borderColor
+        //paint.color = Color.parseColor(borderColor)
         paint.style = Paint.Style.STROKE
         paint.strokeWidth = borderWidth
         canvas.drawCircle(width / 2f, width / 2f, radius - borderWidth / 2f, paint)
     }
 
     private fun drawRoundImage(canvas: Canvas) {
-        var b: Bitmap = (drawable as BitmapDrawable).bitmap
+
+        var b: Bitmap = drawable.toBitmap()
         val bitmap = b.copy(Bitmap.Config.ARGB_8888, true)
 
         /* Scale the bitmap */
