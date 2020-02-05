@@ -116,7 +116,7 @@ class ProfileActivity : AppCompatActivity() {
             Log.d("M_Main", "\t\t\t$isValid\n ")
 
             if(!isValid){
-                wr_repository.error = "huy tebe"
+                wr_repository.error = "Невалидный адрес репозитория"
             }
         return isValid
     }
