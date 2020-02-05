@@ -15,8 +15,24 @@ class CircleImageView @JvmOverloads constructor(
 ) : ImageView(
         context, attrs, defStyleAttrs
 ){
+
+    private val borderColor = Color.BLACK
+    private val borderWidth = 20.0f
+    
     override fun onDraw(canvas: Canvas) {
         drawRoundImage(canvas)
+        drawStroke(canvas)
+    }
+
+    private fun drawStroke(canvas: Canvas) {
+        val paint = Paint(Paint.ANTI_ALIAS_FLAG)
+        val radius = width / 2f
+
+        /* Border paint */
+        paint.color = borderColor
+        paint.style = Paint.Style.STROKE
+        paint.strokeWidth = borderWidth
+        canvas.drawCircle(width / 2f, width / 2f, radius - borderWidth / 2f, paint)
     }
 
     private fun drawRoundImage(canvas: Canvas) {

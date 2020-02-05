@@ -243,4 +243,8 @@
             android:layout_marginStart="@dimen/spacing_normal_16"
             android:layout_gravity="center"/>
     </LinearLayout>
+    <ru.skillbranch.devintensive.ui.custom.CircleImageView
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:src="@drawable/profile_bg"/>
 </LinearLayout>
