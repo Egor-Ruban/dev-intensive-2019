@@ -6,4 +6,20 @@
     <string name="profile_hint_about">О себе</string>
     <string name="profile_hint_last_name">Фамилия</string>
     <string name="profile_hint_first_name">Имя</string>
+
+    <string-array name="exclude">
+        <item>enterprise</item>
+        <item>features</item>
+        <item>topics</item>
+        <item>collections</item>
+        <item>trending</item>
+        <item>events</item>
+        <item>marketplace</item>
+        <item>pricing</item>
+        <item>nonprofit</item>
+        <item>customer-stories</item>
+        <item>security</item>
+        <item>login</item>
+        <item>join</item>
+    </string-array>
 </resources>

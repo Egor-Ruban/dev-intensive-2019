@@ -1,8 +1,10 @@
 package ru.skillbranch.devintensive.ui.profile
 
 import android.graphics.*
+import android.net.Uri
 import android.os.Bundle
 import android.os.PersistableBundle
+import android.util.Log
 import android.view.View
 import android.widget.EditText
 import android.widget.TextView
@@ -30,6 +32,11 @@ class ProfileActivity : AppCompatActivity() {
         setTheme(R.style.AppTheme)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_profile)
+        et_repository.setOnFocusChangeListener { v, hasFocus ->
+            if(!hasFocus){
+                validateRepo()
+            }
+        }
         initViews(savedInstanceState)
         initViewModel()
     }
@@ -80,6 +87,8 @@ class ProfileActivity : AppCompatActivity() {
     }
 
     private fun saveProfileInfo(){
+        if(!validateRepo()) et_repository.setText("")
+        wr_repository.error = ""
         Profile(
             firstName = et_first_name.text.toString(),
             lastName = et_last_name.text.toString(),
@@ -88,6 +97,28 @@ class ProfileActivity : AppCompatActivity() {
         ).apply{
             viewModel.saveProfileData(this)
         }
+    }
+
+    fun validateRepo() : Boolean{
+        val ex = resources.getStringArray(R.array.exclude)
+            var url = et_repository.text.toString()
+
+            url = url.replace("http://", "")
+            url = url.replace("https://", "")
+            url = url.replace("www.", "")
+
+            val uri = Uri.parse(url)
+            var isValid : Boolean
+            val segments = uri.pathSegments
+
+            isValid = !(segments.size != 2 || ex.contains(segments[1]) || segments[0] != "github.com")
+            if(url == "") isValid = true
+            Log.d("M_Main", "\t\t\t$isValid\n ")
+
+            if(!isValid){
+                wr_repository.error = "huy tebe"
+            }
+        return isValid
     }
 
     private fun showCurrentMode(isEdit: Boolean) {
