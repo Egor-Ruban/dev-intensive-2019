@@ -7,8 +7,10 @@ import android.view.View
 import android.widget.EditText
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import com.google.android.material.chip.ChipDrawable
 import kotlinx.android.synthetic.main.activity_profile.*
 import ru.skillbranch.devintensive.R
 import ru.skillbranch.devintensive.models.Profile
@@ -25,6 +27,7 @@ class ProfileActivity : AppCompatActivity() {
     private lateinit var viewModel : ProfileViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        setTheme(R.style.AppTheme)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_profile)
         initViews(savedInstanceState)
@@ -73,7 +76,7 @@ class ProfileActivity : AppCompatActivity() {
     }
 
     private fun updateTheme(mode : Int){
-        delegate.setLocalNightMode(mode)
+        delegate.localNightMode = mode
     }
 
     private fun saveProfileInfo(){

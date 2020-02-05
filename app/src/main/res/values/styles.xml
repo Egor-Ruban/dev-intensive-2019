@@ -6,6 +6,12 @@
 
     </style>
 
+    <style name="AppTheme.Launcher">
+    <item name="android:windowBackground">@drawable/splash</item>
+    <!-- Optional, on Android 5+ you can modify the colorPrimaryDark color to match the windowBackground color for further branding-->
+    <!-- <item name="colorPrimaryDark">@android:color/white</item> -->
+    </style>
+
     <style name="Profile.EditText" parent="Profile">
         <item name="android:textColor">?attr/colorPrimary</item>
         <item name="android:paddingTop">4dp</item>
