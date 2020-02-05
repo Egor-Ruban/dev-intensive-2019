@@ -45,17 +45,21 @@ class CircleImageView @JvmOverloads constructor(
         drawStroke(canvas)
     }
 
+    fun setBorderColor(color : String){
+        borderColor = Color.parseColor(color)
+    }
+
     fun setBorderColor(@ColorRes color : Int){
-        borderColor = color
+        borderColor = context.getColor(color)
     }
 
     @ColorRes fun getBorderColor() = borderColor
 
-    fun setBorderWidth(@Dimension dp : Float){
-        borderWidth = dp
+    fun setBorderWidth(@Dimension dp : Int){
+        borderWidth = dp.toFloat()
     }
 
-    @Dimension fun getBorderWidth() = borderWidth
+    @Dimension fun getBorderWidth() = borderWidth.toInt()
 
     private fun drawStroke(canvas: Canvas) {
         val paint = Paint(Paint.ANTI_ALIAS_FLAG)
