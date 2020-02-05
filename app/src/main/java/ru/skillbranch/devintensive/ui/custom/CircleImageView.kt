@@ -11,18 +11,31 @@ import android.widget.ImageView
 class CircleImageView @JvmOverloads constructor(
         context: Context,
         attrs: AttributeSet? = null,
-        defStyleAttrs:Int=0
+        defStyleAttrs:Int=0,
+        borderColor : Int = Color.BLACK
 ) : ImageView(
         context, attrs, defStyleAttrs
 ){
 
-    private val borderColor = Color.BLACK
-    private val borderWidth = 20.0f
-    
+    private var borderColor = Color.BLACK
+    private var borderWidth = 20.0f
+
     override fun onDraw(canvas: Canvas) {
         drawRoundImage(canvas)
         drawStroke(canvas)
     }
+
+    fun setBorderColor(color : Int){
+        borderColor = color
+    }
+
+    fun getBorderColor() = borderColor
+
+    fun setBorderWidth(value : Float){
+        borderWidth = value
+    }
+
+    fun getBorderWidth() = borderWidth
 
     private fun drawStroke(canvas: Canvas) {
         val paint = Paint(Paint.ANTI_ALIAS_FLAG)
