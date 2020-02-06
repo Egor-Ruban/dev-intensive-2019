@@ -10,6 +10,7 @@ import android.widget.EditText
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.widget.doOnTextChanged
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.google.android.material.chip.ChipDrawable
@@ -25,6 +26,7 @@ class ProfileActivity : AppCompatActivity() {
     }
 
     var isEditMode = false
+    var isValidRepo = true
     private lateinit var viewFields: Map<String, TextView>
     private lateinit var viewModel : ProfileViewModel
 
@@ -32,10 +34,8 @@ class ProfileActivity : AppCompatActivity() {
         setTheme(R.style.AppTheme)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_profile)
-        et_repository.setOnFocusChangeListener { v, hasFocus ->
-            if(!hasFocus){
-                validateRepo()
-            }
+        et_repository.doOnTextChanged { text, start, count, after ->
+            validateRepo()
         }
         initViews(savedInstanceState)
         initViewModel()
@@ -54,6 +54,8 @@ class ProfileActivity : AppCompatActivity() {
 
         isEditMode = savedInstanceState?.getBoolean(IS_EDIT_MODE) ?: false
         showCurrentMode(isEditMode)
+
+        isValidRepo = savedInstanceState?.getBoolean("IS_VALID_REPO") ?: true
 
         btn_edit.setOnClickListener {
             if(isEditMode) saveProfileInfo()
@@ -88,7 +90,8 @@ class ProfileActivity : AppCompatActivity() {
 
     private fun saveProfileInfo(){
         if(!validateRepo()) et_repository.setText("")
-        wr_repository.error = ""
+        wr_repository.isErrorEnabled = false
+        isValidRepo = true
         Profile(
             firstName = et_first_name.text.toString(),
             lastName = et_last_name.text.toString(),
@@ -111,13 +114,25 @@ class ProfileActivity : AppCompatActivity() {
             var isValid : Boolean
             val segments = uri.pathSegments
 
-            isValid = !(segments.size != 2 || ex.contains(segments[1]) || segments[0] != "github.com")
+        isValid = !(segments.size != 2 ||
+                ex.contains(segments[1]) ||
+                segments[0] != "github.com" ||
+                url.contains("//")||
+                segments[1].contains(" ") ||
+                segments[1].contains("--") ||
+                segments[1].contains("+") ||
+                segments[1].contains("=")||
+                segments[1].contains("!")||
+                segments[1].contains("_"))
             if(url == "") isValid = true
-            Log.d("M_Main", "\t\t\t$isValid\n ")
+            //Log.d("M_Main", "\t\t\t$isValid\n ")
 
             if(!isValid){
                 wr_repository.error = "Невалидный адрес репозитория"
+            } else {
+                wr_repository.isErrorEnabled = false
             }
+        isValidRepo = isValid
         return isValid
     }
 
@@ -156,5 +171,6 @@ class ProfileActivity : AppCompatActivity() {
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         outState.putBoolean(IS_EDIT_MODE,isEditMode)
+        outState.putBoolean("IS_VALID_REPO", isValidRepo)
     }
 }
