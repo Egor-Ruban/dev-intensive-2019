@@ -3,7 +3,6 @@ package ru.skillbranch.devintensive.ui.profile
 import android.graphics.*
 import android.net.Uri
 import android.os.Bundle
-import android.os.PersistableBundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
@@ -11,12 +10,8 @@ import android.view.View
 import android.widget.EditText
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.app.AppCompatDelegate
-import androidx.core.widget.addTextChangedListener
-import androidx.core.widget.doOnTextChanged
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import com.google.android.material.chip.ChipDrawable
 import kotlinx.android.synthetic.main.activity_profile.*
 import ru.skillbranch.devintensive.R
 import ru.skillbranch.devintensive.models.Profile
@@ -37,9 +32,21 @@ class ProfileActivity : AppCompatActivity() {
         setTheme(R.style.AppTheme)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_profile)
-        et_repository.addTextChangedListener{
-            validateRepo()
-        }
+        et_repository.addTextChangedListener(
+            object:TextWatcher{
+                override fun afterTextChanged(s: Editable?) {
+                    Log.d("M_Main", "a")
+                }
+
+                override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+                    Log.d("M_Main", "b")
+                }
+
+                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                    Log.d("M_Main", "o")
+                    validateRepo()
+                }
+            })
 
         initViews(savedInstanceState)
         initViewModel()
