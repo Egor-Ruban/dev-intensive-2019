@@ -4,6 +4,8 @@ import android.graphics.*
 import android.net.Uri
 import android.os.Bundle
 import android.os.PersistableBundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.view.View
 import android.widget.EditText
@@ -117,17 +119,17 @@ class ProfileActivity : AppCompatActivity() {
             val segments = uri.pathSegments
 
         isValid = !(segments.size != 2 ||
-                ex.contains(segments[1]) ||
-                segments[0] != "github.com" ||
-                url.contains("//")||
-                segments[1].contains(" ") ||
-                segments[1].contains("--") ||
-                segments[1].contains("+") ||
-                segments[1].contains("=")||
-                segments[1].contains("!")||
-                segments[1].contains("_"))
+            ex.contains(segments[1]) ||
+            segments[0] != "github.com" ||
+            url.contains("//")||
+            segments[1].contains(" ") ||
+            segments[1].contains("--") ||
+            segments[1].contains("+") ||
+            segments[1].contains("=")||
+            segments[1].contains("!")||
+            segments[1].contains("_"))
             if(url == "") isValid = true
-            //Log.d("M_Main", "\t\t\t$isValid\n ")
+            Log.d("M_Main", "\t\t\t$isValid\n ")
 
             if(!isValid){
                 wr_repository.error = "Невалидный адрес репозитория"
