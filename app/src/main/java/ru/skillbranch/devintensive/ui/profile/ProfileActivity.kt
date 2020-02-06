@@ -10,6 +10,7 @@ import android.widget.EditText
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.widget.addTextChangedListener
 import androidx.core.widget.doOnTextChanged
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -34,9 +35,10 @@ class ProfileActivity : AppCompatActivity() {
         setTheme(R.style.AppTheme)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_profile)
-        et_repository.doOnTextChanged { text, start, count, after ->
+        et_repository.addTextChangedListener{
             validateRepo()
         }
+
         initViews(savedInstanceState)
         initViewModel()
     }
