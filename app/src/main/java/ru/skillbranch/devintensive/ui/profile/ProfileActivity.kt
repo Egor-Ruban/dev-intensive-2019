@@ -67,7 +67,12 @@ class ProfileActivity : AppCompatActivity() {
         showCurrentMode(isEditMode)
 
         isValidRepo = savedInstanceState?.getBoolean("IS_VALID_REPO") ?: true
-
+        if(!isValidRepo && isEditMode){
+            wr_repository.isErrorEnabled = true
+            wr_repository.error = "Невалидный адрес репозитория"
+        } else {
+            wr_repository.isErrorEnabled = false
+        }
         btn_edit.setOnClickListener {
             if(isEditMode) saveProfileInfo()
             isEditMode = isEditMode.not()
@@ -139,6 +144,7 @@ class ProfileActivity : AppCompatActivity() {
             Log.d("M_Main", "\t\t\t$isValid\n ")
 
             if(!isValid){
+                wr_repository.isErrorEnabled = true
                 wr_repository.error = "Невалидный адрес репозитория"
             } else {
                 wr_repository.isErrorEnabled = false
