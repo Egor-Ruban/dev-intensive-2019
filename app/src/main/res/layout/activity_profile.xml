@@ -243,6 +243,7 @@
             android:src="@drawable/ic_eye_24dp"
             android:layout_toEndOf="@+id/til_repo"
             android:layout_marginStart="@dimen/spacing_normal_16"
-            android:layout_gravity="center"/>
+            android:layout_gravity="center"
+            android:imeOptions="actionDone"/>
     </LinearLayout>
 </LinearLayout>
