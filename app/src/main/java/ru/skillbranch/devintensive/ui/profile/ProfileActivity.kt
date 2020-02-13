@@ -6,7 +6,9 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
+import android.view.KeyEvent
 import android.view.View
+import android.view.inputmethod.EditorInfo
 import android.widget.EditText
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
@@ -14,6 +16,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import kotlinx.android.synthetic.main.activity_profile.*
 import ru.skillbranch.devintensive.R
+import ru.skillbranch.devintensive.extensions.hideKeyboard
 import ru.skillbranch.devintensive.models.Profile
 import ru.skillbranch.devintensive.viewmodels.ProfileViewModel
 
@@ -47,7 +50,7 @@ class ProfileActivity : AppCompatActivity() {
                     validateRepo()
                 }
             })
-
+        et_repository.setOnEditorActionListener(DoneOnEditorActionListener())
         initViews(savedInstanceState)
         initViewModel()
     }
@@ -189,5 +192,21 @@ class ProfileActivity : AppCompatActivity() {
         super.onSaveInstanceState(outState)
         outState.putBoolean(IS_EDIT_MODE,isEditMode)
         outState.putBoolean("IS_VALID_REPO", isValidRepo)
+    }
+
+    inner class DoneOnEditorActionListener : TextView.OnEditorActionListener {
+        override fun onEditorAction(
+                v: TextView?,
+                actionId: Int,
+                event: KeyEvent?
+        ): Boolean {
+            Log.d("M_MainActivity", "$actionId")
+            if (actionId== EditorInfo.IME_ACTION_DONE) {
+                validateRepo()
+                hideKeyboard()
+                return true
+            }
+            return false
+        }
     }
 }
